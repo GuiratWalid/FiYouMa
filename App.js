@@ -1,13 +1,16 @@
 import { NavigationContainer } from "@react-navigation/native";
-import { StatusBar } from "expo-status-bar";
-import { Button, StyleSheet, Text, View } from "react-native";
-import StackNavigator from "./StackNavigator";
+import { StyleSheet } from "react-native";
+import StackNavigator from "./components/StackNavigator";
+import { TailwindProvider } from "tailwind-rn";
+import utilities from "./tailwind.json";
 
 export default function App() {
   return (
-    <NavigationContainer>
-      <StackNavigator />
-    </NavigationContainer>
+    <TailwindProvider utilities={utilities}>
+      <NavigationContainer>
+        <StackNavigator />
+      </NavigationContainer>
+    </TailwindProvider>
   );
 }
 

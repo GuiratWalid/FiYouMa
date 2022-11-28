@@ -3,14 +3,18 @@ import { StyleSheet } from "react-native";
 import StackNavigator from "./components/StackNavigator";
 import { TailwindProvider } from "tailwind-rn";
 import utilities from "./tailwind.json";
+import { AuthProvider } from "./hooks/useAuth";
 
 export default function App() {
   return (
-    <TailwindProvider utilities={utilities}>
-      <NavigationContainer>
-        <StackNavigator />
-      </NavigationContainer>
-    </TailwindProvider>
+    <NavigationContainer>
+      <TailwindProvider utilities={utilities}>
+        {/* HOC */}
+        <AuthProvider>
+          <StackNavigator />
+        </AuthProvider>
+      </TailwindProvider>
+    </NavigationContainer>
   );
 }
 

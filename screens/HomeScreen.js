@@ -1,14 +1,13 @@
 import { View, Text, Button } from "react-native";
 import React from "react";
+import { useTailwind } from "tailwind-rn";
 
 const HomeScreen = ({ navigation }) => {
+  const tw = useTailwind();
+
   return (
     <View>
-      <Text>HomeScreen</Text>
-      <Button
-        title="Go to chat screen"
-        onPress={() => navigation.navigate("Chat")}
-      />
+      <Text style={tw("")}>HomeScreen</Text>
     </View>
   );
 };

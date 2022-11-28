@@ -1,6 +1,8 @@
 node_modules/
 .expo/
 dist/
+GoogleService-Info.plist
+google-services.json
 npm-debug.*
 *.jks
 *.p8

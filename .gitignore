@@ -1,6 +1,7 @@
 node_modules/
 .expo/
 dist/
+.env
 GoogleService-Info.plist
 google-services.json
 npm-debug.*

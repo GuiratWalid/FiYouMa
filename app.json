@@ -24,11 +24,30 @@
       "adaptiveIcon": {
         "foregroundImage": "./assets/adaptive-icon.png",
         "backgroundColor": "#FFFFFF"
-      }
+      },
+      "package": "com.walid.guirat.fiyouma"
     },
     "web": {
       "favicon": "./assets/favicon.png"
+    },
+    "extra": {
+      "eas": {
+        "projectId": "f7a67454-a8de-4c18-baa3-966c7015d672"
+      }
     }
   },
-  "scheme": "mycoolredirect"
+  "scheme": "mycoolredirect",
+  "ios": {
+    "bundleIdentifier": "com.mobile.fiyouma",
+    "config": {
+      "googleSignIn": {
+        "reservedClientId": "com.googleusercontent.apps.470656479719-nfvfjum0ljtb0p4t22l1iaonjplcj3n3"
+      }
+    },
+    "googleServicesFile": "./GoogleService-Info.plist"
+  },
+  "android": {
+    "package": "com.mobile.fiyouma",
+    "googleServicesFile": "./google-services.json"
+  }
 }

@@ -36,7 +36,7 @@
       }
     }
   },
-  "scheme": "mycoolredirect",
+  "scheme": "fiyouma",
   "ios": {
     "bundleIdentifier": "com.mobile.fiyouma",
     "config": {

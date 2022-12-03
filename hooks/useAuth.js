@@ -85,6 +85,7 @@ export const AuthProvider = ({ children }) => {
     <AuthContext.Provider
       value={{
         user: {
+          displayName: "Walid",
           photoURL:
             "https://thumbs.dreamstime.com/b/ic%C3%B4ne-femme-avatar-clipart-femmes-dans-le-vecteur-png-fille-la-bande-bisness-233362315.jpg",
         },

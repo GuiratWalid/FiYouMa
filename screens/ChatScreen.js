@@ -8,10 +8,8 @@ const ChatScreen = () => {
   const tailwind = useTailwind();
   return (
     <SafeAreaView style={tailwind("flex-1")}>
-      <View style={tailwind("")}>
-        <ChatHeader title="Chat" callEnbaled={true} />
-        <ChatList />
-      </View>
+      <ChatHeader title="Chat" callEnbaled={true} />
+      <ChatList />
     </SafeAreaView>
   );
 };

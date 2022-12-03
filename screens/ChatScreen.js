@@ -1,11 +1,18 @@
-import { View, Text } from "react-native";
+import { View, Text, SafeAreaView, TouchableOpacity } from "react-native";
 import React from "react";
+import ChatHeader from "../components/ChatHeader";
+import ChatList from "../components/ChatList";
+import { useTailwind } from "tailwind-rn";
 
 const ChatScreen = () => {
+  const tailwind = useTailwind();
   return (
-    <View>
-      <Text>ChatScreen</Text>
-    </View>
+    <SafeAreaView style={tailwind("flex-1")}>
+      <View style={tailwind("")}>
+        <ChatHeader title="Chat" callEnbaled={true} />
+        <ChatList />
+      </View>
+    </SafeAreaView>
   );
 };
 

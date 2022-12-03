@@ -50,6 +50,18 @@
 			"marginLeft": 40
 		}
 	},
+	"my-5": {
+		"style": {
+			"marginTop": 20,
+			"marginBottom": 20
+		}
+	},
+	"mx-5": {
+		"style": {
+			"marginLeft": 20,
+			"marginRight": 20
+		}
+	},
 	"mb-40": {
 		"style": {
 			"marginBottom": 160
@@ -311,6 +323,12 @@
 		"style": {
 			"--tw-bg-opacity": 1,
 			"backgroundColor": "rgb(0 0 0 / var(--tw-bg-opacity))"
+		}
+	},
+	"bg-red-100": {
+		"style": {
+			"--tw-bg-opacity": 1,
+			"backgroundColor": "rgb(254 226 226 / var(--tw-bg-opacity))"
 		}
 	},
 	"p-4": {

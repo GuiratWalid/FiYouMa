@@ -9,6 +9,7 @@ import RegisterScreen from "../screens/RegisterScreen";
 import ModalScreen from "../screens/ModalScreen";
 import MatchedScreen from "../screens/MatchedScreen";
 import MessagesScreen from "../screens/MessagesScreen";
+import CreateProfileScreen from "../screens/CreateProfileScreen";
 
 const Stack = createNativeStackNavigator();
 
@@ -19,6 +20,10 @@ const StackNavigator = () => {
       {user ? (
         <>
           <Stack.Group>
+            <Stack.Screen
+              name="Profile"
+              component={CreateProfileScreen}
+            ></Stack.Screen>
             <Stack.Screen name="Home" component={HomeScreen}></Stack.Screen>
             <Stack.Screen name="Chat" component={ChatScreen}></Stack.Screen>
             <Stack.Screen

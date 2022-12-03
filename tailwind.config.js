@@ -1,11 +1,16 @@
+/** @type{ import('tailwindcss').Config}*/
 module.exports = {
   content: [
-    "./screens/**/*.{ts,tsx,js,jsx}",
-    "./App.js",
-    "./components/**/*.{ts,tsx,js,jsx}",
+    "./App.{js,jsx,ts,tsx}",
+    "./screens/*.{js,jsx,ts,tsx}",
+    "./hooks/*.{js,jsx,ts,tsx}",
   ],
   theme: {
-    extend: {},
+    extend: {
+      colors: {
+        white: "#ffffff",
+      },
+    },
   },
   plugins: [],
   corePlugins: require("tailwind-rn/unsupported-core-plugins"),

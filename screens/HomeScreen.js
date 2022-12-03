@@ -1,9 +1,15 @@
 import { View, Text, Button } from "react-native";
-import React from "react";
+import React, { useLayoutEffect } from "react";
 import { useTailwind } from "tailwind-rn";
+import { useNavigation } from "@react-navigation/native";
 
-const HomeScreen = ({ navigation }) => {
+const HomeScreen = () => {
+  const navigation = useNavigation();
   const tw = useTailwind();
+
+  useLayoutEffect(() => {
+    navigation.setOptions({ headerShown: false });
+  });
 
   return (
     <View>

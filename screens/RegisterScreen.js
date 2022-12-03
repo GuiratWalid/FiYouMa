@@ -10,16 +10,15 @@ import React, { useLayoutEffect, useState } from "react";
 import useAuth from "../hooks/useAuth";
 import { useNavigation } from "@react-navigation/native";
 import { useTailwind } from "tailwind-rn";
-import DialogComponent from "../components/DialogComponent";
+import initfirebase from "../config/firebase";
 
-const LoginScreen = () => {
+const RegisterScreen = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-  const [visible, setVisible] = useState(false);
-  const { login, loading } = useAuth();
+  const [confirmPassword, setConfirmPassword] = useState("");
+  const { register, loading } = useAuth();
   const navigation = useNavigation();
   const tailwind = useTailwind();
-  const setVisibility = (vis) => setVisible(vis);
   useLayoutEffect(() => {
     navigation.setOptions({
       headerShown: false,
@@ -48,7 +47,7 @@ const LoginScreen = () => {
         ></TextInput>
         <TextInput
           style={tailwind(
-            "w-64 p-2 text-center bg-white h-12 mb-10 rounded-2xl"
+            "w-64 p-2 text-center bg-white h-12 mb-8 rounded-2xl"
           )}
           onChangeText={(e) => {
             setPassword(e);
@@ -57,22 +56,33 @@ const LoginScreen = () => {
           keyboardType="default"
           secureTextEntry={true}
         ></TextInput>
+        <TextInput
+          style={tailwind(
+            "w-64 p-2 text-center bg-white h-12 mb-10 rounded-2xl"
+          )}
+          onChangeText={(e) => {
+            setConfirmPassword(e);
+          }}
+          placeholder="Confirm password"
+          keyboardType="default"
+          secureTextEntry={true}
+        ></TextInput>
         <TouchableOpacity
           style={[
             tailwind("w-52 bg-white p-4 rounded-2xl"),
             { marginHorizontal: "25%" },
           ]}
-          onPress={() => login(email, password)}
+          onPress={() => register(email, password, confirmPassword)}
         >
-          <Text style={tailwind("font-bold text-center")}>Sign in</Text>
+          <Text style={tailwind("font-bold text-center")}>Create account</Text>
         </TouchableOpacity>
         <View style={tailwind("flex flex-row mt-4")}>
           <TouchableOpacity
             style={tailwind("p-4")}
-            onPress={() => navigation.navigate("Register")}
+            onPress={() => navigation.navigate("Login")}
           >
             <Text style={tailwind("font-semibold text-white text-center")}>
-              Create new account ?
+              Sign in with account ?
             </Text>
           </TouchableOpacity>
           <TouchableOpacity
@@ -84,15 +94,9 @@ const LoginScreen = () => {
             </Text>
           </TouchableOpacity>
         </View>
-        {/* <DialogComponent
-          visible={visible}
-          title="Alert"
-          message="Veuillez Saisir le mot de passe"
-          setVisibility={setVisibility}
-        /> */}
       </ImageBackground>
     </View>
   );
 };
 
-export default LoginScreen;
+export default RegisterScreen;

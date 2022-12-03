@@ -15,20 +15,24 @@ const StackNavigator = () => {
     <Stack.Navigator defaultScreenOptions={{ headerShown: false }}>
       {user ? (
         <>
-          <Stack.Screen name="Home" component={HomeScreen}></Stack.Screen>
-          <Stack.Screen name="Chat" component={ChatScreen}></Stack.Screen>
+          <Stack.Group>
+            <Stack.Screen name="Home" component={HomeScreen}></Stack.Screen>
+            <Stack.Screen name="Chat" component={ChatScreen}></Stack.Screen>
+          </Stack.Group>
         </>
       ) : (
         <>
-          <Stack.Screen name="Login" component={LoginScreen}></Stack.Screen>
-          <Stack.Screen
-            name="GoogleLogin"
-            component={GoogleLoginScreen}
-          ></Stack.Screen>
-          <Stack.Screen
-            name="Register"
-            component={RegisterScreen}
-          ></Stack.Screen>
+          <Stack.Group>
+            <Stack.Screen name="Login" component={LoginScreen}></Stack.Screen>
+            <Stack.Screen
+              name="GoogleLogin"
+              component={GoogleLoginScreen}
+            ></Stack.Screen>
+            <Stack.Screen
+              name="Register"
+              component={RegisterScreen}
+            ></Stack.Screen>
+          </Stack.Group>
         </>
       )}
     </Stack.Navigator>

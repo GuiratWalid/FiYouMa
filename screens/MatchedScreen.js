@@ -58,7 +58,9 @@ const MatchedScreen = () => {
             navigation.navigate("Chat");
           }}
         >
-          <Text style={tailwind("text-center font-bold")}>Send a Message</Text>
+          <Text style={tailwind("text-center font-bold text-lg")}>
+            Send a Message
+          </Text>
         </TouchableOpacity>
       </ImageBackground>
     </View>

@@ -9,6 +9,7 @@ module.exports = {
     extend: {
       colors: {
         white: "#ffffff",
+        purple: "#800080",
       },
       spacing: {
         200: "32rem",

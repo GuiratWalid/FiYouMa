@@ -77,11 +77,23 @@ export const AuthProvider = ({ children }) => {
     return "";
   };
 
-  const logout = () => {};
+  const logout = () => {
+    alert("Logout");
+  };
 
   return (
     <AuthContext.Provider
-      value={{ user: {}, signInWithGoogle, login, register, loading: false }}
+      value={{
+        user: {
+          photoURL:
+            "https://thumbs.dreamstime.com/b/ic%C3%B4ne-femme-avatar-clipart-femmes-dans-le-vecteur-png-fille-la-bande-bisness-233362315.jpg",
+        },
+        signInWithGoogle,
+        logout,
+        login,
+        register,
+        loading: false,
+      }}
     >
       {children}
     </AuthContext.Provider>

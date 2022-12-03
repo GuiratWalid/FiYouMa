@@ -34,6 +34,22 @@
 			"bottom": 40
 		}
 	},
+	"m-5": {
+		"style": {
+			"marginTop": 20,
+			"marginRight": 20,
+			"marginBottom": 20,
+			"marginLeft": 20
+		}
+	},
+	"m-10": {
+		"style": {
+			"marginTop": 40,
+			"marginRight": 40,
+			"marginBottom": 40,
+			"marginLeft": 40
+		}
+	},
 	"mb-40": {
 		"style": {
 			"marginBottom": 160
@@ -67,6 +83,21 @@
 	"mb-12": {
 		"style": {
 			"marginBottom": 48
+		}
+	},
+	"mt-5": {
+		"style": {
+			"marginTop": 20
+		}
+	},
+	"mt-20": {
+		"style": {
+			"marginTop": 80
+		}
+	},
+	"mt-10": {
+		"style": {
+			"marginTop": 40
 		}
 	},
 	"flex": {
@@ -154,6 +185,16 @@
 			"width": 64
 		}
 	},
+	"w-20": {
+		"style": {
+			"width": 80
+		}
+	},
+	"w-32": {
+		"style": {
+			"width": 128
+		}
+	},
 	"flex-1": {
 		"style": {
 			"flexGrow": 1,
@@ -210,6 +251,14 @@
 			"borderBottomLeftRadius": 12
 		}
 	},
+	"rounded": {
+		"style": {
+			"borderTopLeftRadius": 4,
+			"borderTopRightRadius": 4,
+			"borderBottomRightRadius": 4,
+			"borderBottomLeftRadius": 4
+		}
+	},
 	"rounded-b-xl": {
 		"style": {
 			"borderBottomRightRadius": 12,
@@ -258,6 +307,12 @@
 			"backgroundColor": "rgb(156 163 175 / var(--tw-bg-opacity))"
 		}
 	},
+	"bg-black": {
+		"style": {
+			"--tw-bg-opacity": 1,
+			"backgroundColor": "rgb(0 0 0 / var(--tw-bg-opacity))"
+		}
+	},
 	"p-4": {
 		"style": {
 			"paddingTop": 16,
@@ -300,6 +355,24 @@
 			"paddingBottom": 8
 		}
 	},
+	"px-10": {
+		"style": {
+			"paddingLeft": 40,
+			"paddingRight": 40
+		}
+	},
+	"py-8": {
+		"style": {
+			"paddingTop": 32,
+			"paddingBottom": 32
+		}
+	},
+	"py-20": {
+		"style": {
+			"paddingTop": 80,
+			"paddingBottom": 80
+		}
+	},
 	"pt-1": {
 		"style": {
 			"paddingTop": 4
@@ -313,6 +386,21 @@
 	"pb-2": {
 		"style": {
 			"paddingBottom": 8
+		}
+	},
+	"pb-5": {
+		"style": {
+			"paddingBottom": 20
+		}
+	},
+	"pt-20": {
+		"style": {
+			"paddingTop": 80
+		}
+	},
+	"pb-20": {
+		"style": {
+			"paddingBottom": 80
 		}
 	},
 	"text-center": {
@@ -330,6 +418,12 @@
 		"style": {
 			"fontSize": 24,
 			"lineHeight": 32
+		}
+	},
+	"text-lg": {
+		"style": {
+			"fontSize": 18,
+			"lineHeight": 28
 		}
 	},
 	"font-bold": {

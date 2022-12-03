@@ -16,6 +16,7 @@ const HomeScreen = () => {
 
   useLayoutEffect(() => {
     navigation.setOptions({ headerShown: false });
+    // load data from firebase
   });
 
   const data = [
@@ -47,6 +48,19 @@ const HomeScreen = () => {
       age: 22,
     },
   ];
+
+  const swipeLeft = async (cardIndex) => {
+    if (!data[cardIndex]) return;
+    const userSwipped = data[cardIndex];
+    console.log("You swipped PASS on " + userSwipped.id);
+  };
+
+  const swipeRight = async (cardIndex) => {
+    if (!data[cardIndex]) return;
+    const userSwipped = data[cardIndex];
+    console.log("You swipped MATCH on " + userSwipped.id);
+    navigation.navigate("Matched", { loggedInProfile: user, userSwipped });
+  };
 
   return (
     <SafeAreaView style={tailwind("flex-1")}>
@@ -81,16 +95,12 @@ const HomeScreen = () => {
           ref={swipeRef}
           containerStyle={{ backgroundColor: "transparent" }}
           cards={data}
-          stackSize={3}
+          stackSize={5}
           cardIndex={0}
           verticalSwipe={false}
           animateCardOpacity={true}
-          onSwipedLeft={() => {
-            console.log("SWIPE PASS");
-          }}
-          onSwipedRight={() => {
-            console.log("SWIPE MATCH");
-          }}
+          onSwipedLeft={swipeLeft}
+          onSwipedRight={swipeRight}
           backgroundColor={"#4FDBE9"}
           overlayLabels={{
             left: {
@@ -111,8 +121,8 @@ const HomeScreen = () => {
               },
             },
           }}
-          renderCard={(card) => {
-            return (
+          renderCard={(card) =>
+            card ? (
               <View
                 key={card.id}
                 style={tailwind("relative bg-white h-3/4 rounded-xl")}
@@ -138,8 +148,23 @@ const HomeScreen = () => {
                   <Text style={tailwind("text-2xl font-bold")}>{card.age}</Text>
                 </View>
               </View>
-            );
-          }}
+            ) : (
+              <View
+                style={[
+                  tailwind(
+                    "relative bg-white h-3/4 rounded-xl justify-center items-center"
+                  ),
+                  styles.cardShadow,
+                ]}
+              >
+                <Text style={tailwind("font-bold pb-5")}>No more profiles</Text>
+                <Image
+                  style={tailwind("h-20 w-20")}
+                  source={require("../assets/images/sad.png")}
+                />
+              </View>
+            )
+          }
         />
       </View>
       {/* End of Card */}

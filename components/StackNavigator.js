@@ -10,6 +10,7 @@ import ModalScreen from "../screens/ModalScreen";
 import MatchedScreen from "../screens/MatchedScreen";
 import MessagesScreen from "../screens/MessagesScreen";
 import CreateProfileScreen from "../screens/CreateProfileScreen";
+import PictureScreen from "../screens/PictureScreen";
 
 const Stack = createNativeStackNavigator();
 
@@ -29,6 +30,10 @@ const StackNavigator = () => {
             <Stack.Screen
               name="Profile"
               component={CreateProfileScreen}
+            ></Stack.Screen>
+            <Stack.Screen
+              name="Picture"
+              component={PictureScreen}
             ></Stack.Screen>
           </Stack.Group>
           <Stack.Group screenOptions={{ presentation: "modal" }}>

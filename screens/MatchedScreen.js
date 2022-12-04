@@ -5,20 +5,26 @@ import {
   Image,
   ImageBackground,
 } from "react-native";
-import React, { useLayoutEffect } from "react";
+import React, { useEffect, useLayoutEffect } from "react";
 import { useNavigation, useRoute } from "@react-navigation/native";
 import { useTailwind } from "tailwind-rn";
+import useAuth from "../hooks/useAuth";
 
 const MatchedScreen = () => {
   const navigation = useNavigation();
   const { params } = useRoute();
   const tailwind = useTailwind();
+  const { matchUsers } = useAuth();
   const { loggedInProfile, userSwipped } = params;
 
   useLayoutEffect(() => {
     navigation.setOptions({
       headerShown: false,
     });
+  }, []);
+
+  useEffect(() => {
+    matchUsers(loggedInProfile, userSwipped);
   }, []);
 
   return (

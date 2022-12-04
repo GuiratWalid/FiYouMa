@@ -10,7 +10,7 @@ const ModalScreen = () => {
   const [image, setImage] = useState(null);
   const [job, setJob] = useState(null);
   const [age, setAge] = useState(null);
-  const { user } = useAuth();
+  const { user, createProfile } = useAuth();
 
   useLayoutEffect(() => {
     navigation.setOptions({
@@ -22,18 +22,6 @@ const ModalScreen = () => {
       headerTitleStyle: { color: "white", textAlign: "center" },
     });
   });
-
-  const updateUserProfile = () => {
-    // Batabase
-    const user = {
-      id: user?.uid,
-      displayName: user?.displayName,
-      photoURL: image,
-      jb: job,
-      age: age,
-    };
-    navigation.navigate("Home");
-  };
 
   return (
     <View style={tailwind("flex-1 bg-white items-center pt-3")}>
@@ -81,7 +69,9 @@ const ModalScreen = () => {
             !image || !age || !job ? "bg-gray-400" : "bg-red-400"
           }`
         )}
-        onPress={updateUserProfile}
+        onPress={async () =>
+          await createProfile(user.displayName, image, job, age)
+        }
       >
         <Text style={tailwind("text-center font-bold text-white text-xl")}>
           Update Profile

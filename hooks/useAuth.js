@@ -19,7 +19,7 @@ import {
   collection,
   query,
   where,
-  onSnapshot,
+  getDocs,
   getDoc,
 } from "firebase/firestore";
 
@@ -92,32 +92,59 @@ export const AuthProvider = ({ children }) => {
     }
   };
 
-  const createProfile = async (displayName, photoURL, job, age) => {
-    const updatedUser = {
-      uid: user.uid,
-      email: user.uid,
-      displayName,
-      photoURL,
-      job,
-      age,
-    };
-    setDoc(doc(firestore, "users", user.uid), {
-      uid: user.uid,
-      email: user.uid,
-      displayName,
-      photoURL,
-      job,
-      age,
-    })
-      .then(() => {
-        setUser(updatedUser);
-        navigation.navigate("Home");
+  const updatePhoto = async (photoURL) => {
+    if (!photoURL) alert("Please upload photo or enter a photo URL");
+    else {
+      const updatedUser = {
+        uid: user.uid,
+        email: user.email,
+        displayName: user.job,
+        photoURL,
+        job: user.job,
+        age: user.age,
+      };
+      setDoc(doc(firestore, "users", user.uid), updatedUser)
+        .then(() => {
+          setUser(updatedUser);
+          navigation.navigate("Home");
+        })
+        .catch((error) => {
+          setUser(null);
+          navigation.navigate("Login");
+          alert(error);
+        });
+    }
+  };
+
+  const createProfile = async (displayName, job, age) => {
+    if (!displayName) alert("Full name is required !");
+    else if (!job) alert("Occupation is required !");
+    else if (!age) alert("Age is required !");
+    else {
+      const updatedUser = {
+        uid: user.uid,
+        email: user.email,
+        displayName,
+        job,
+        age,
+      };
+      setDoc(doc(firestore, "users", user.uid), {
+        uid: user.uid,
+        email: user.uid,
+        displayName,
+        job,
+        age,
       })
-      .catch((error) => {
-        setUser(null);
-        navigation.navigate("Login");
-        alert(error);
-      });
+        .then(() => {
+          setUser(updatedUser);
+          navigation.navigate("Picture");
+        })
+        .catch((error) => {
+          setUser(null);
+          navigation.navigate("Login");
+          alert(error);
+        });
+    }
   };
 
   const logout = async () => {
@@ -131,15 +158,54 @@ export const AuthProvider = ({ children }) => {
       });
   };
 
+  const getAllUsers = async () => {
+    const q = query(
+      collection(firestore, "users"),
+      where("uid", "!=", user.uid)
+    );
+    const array = [];
+    const querySnapshot = await getDocs(q);
+    querySnapshot.forEach((doc) => {
+      console.log(doc.data());
+      doc.data() && array.push(doc.data());
+    });
+    return array;
+  };
+
+  const matchUsers = async (loggedInProfile, userSwipped) => {
+    await setDoc(doc(firestore, "matches", user.uid), {
+      loggedInProfile,
+      userSwipped,
+    });
+  };
+
+  const getAllMatches = async () => {
+    const q = query(
+      collection(firestore, "macthes", user.uid),
+      where("loggedInProfile.uid", "==", user.uid)
+    );
+    const array = [];
+    const querySnapshot = await getDocs(q);
+    querySnapshot.forEach((doc) => {
+      console.log(doc.data());
+      doc.data() && array.push(doc.data());
+    });
+    return array;
+  };
+
   return (
     <AuthContext.Provider
       value={{
         user: user,
         signInWithGoogle,
+        getAllUsers,
         logout,
         login,
         register,
         createProfile,
+        getAllMatches,
+        matchUsers,
+        updatePhoto,
         loading: false,
       }}
     >

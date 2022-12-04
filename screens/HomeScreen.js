@@ -1,5 +1,5 @@
 import { View, Text, StyleSheet, TouchableOpacity, Image } from "react-native";
-import React, { useLayoutEffect, useRef } from "react";
+import React, { useEffect, useLayoutEffect, useRef, useState } from "react";
 import { useTailwind } from "tailwind-rn";
 import { useNavigation } from "@react-navigation/native";
 import { SafeAreaView } from "react-native-safe-area-context";
@@ -10,44 +10,53 @@ import { Ionicons, AntDesign, Entypo } from "@expo/vector-icons";
 const HomeScreen = () => {
   const navigation = useNavigation();
   const tailwind = useTailwind();
-  const { user, logout } = useAuth();
+  const { user, logout, getAllUsers } = useAuth();
 
   const swipeRef = useRef(null);
 
+  const [data, setData] = useState([]);
   useLayoutEffect(() => {
     navigation.setOptions({ headerShown: false });
-    // load data from firebase
-  });
+  }, []);
 
-  const data = [
-    {
-      id: "123",
-      firstName: "Walid",
-      lastName: "Guirat",
-      job: "Software engineer",
-      photoURL:
-        "https://scontent.ftun14-1.fna.fbcdn.net/v/t39.30808-6/283889213_5371788816206177_8353715117781829547_n.jpg?_nc_cat=101&ccb=1-7&_nc_sid=174925&_nc_ohc=hTSiPhy13HEAX_YQPgb&_nc_ht=scontent.ftun14-1.fna&oh=00_AfDT6cK5eQK3hrU0c4pAVBPg5Yumaky8z8SpogZ1bbTnOw&oe=638F4B40",
-      age: 24,
-    },
-    {
-      id: "456",
-      firstName: "Mohamed Ali",
-      lastName: "Ghraieb",
-      job: "Mechanical engineer",
-      photoURL:
-        "https://scontent.ftun14-1.fna.fbcdn.net/v/t39.30808-6/313406058_5624022434341289_8889043509133358147_n.jpg?_nc_cat=108&ccb=1-7&_nc_sid=09cbfe&_nc_ohc=jfw0fkair7YAX-jmoRu&_nc_ht=scontent.ftun14-1.fna&oh=00_AfDUNw4m-bL5DZvu2yYhyH9iVYidhiah_UUgymiRxXN00Q&oe=6390B363",
-      age: 23,
-    },
-    {
-      id: "789",
-      firstName: "Wassim",
-      lastName: "Guirat",
-      job: "Electric engineer",
-      photoURL:
-        "https://scontent.ftun14-1.fna.fbcdn.net/v/t39.30808-6/271605380_486600289520135_4775255171374812148_n.jpg?_nc_cat=100&ccb=1-7&_nc_sid=174925&_nc_ohc=PD5Clb7nn_cAX8F970e&_nc_ht=scontent.ftun14-1.fna&oh=00_AfAgreg_TzlQiy3Fys2XW4xaVuIayOk5l6u_7E1p25hWIA&oe=638F7B68",
-      age: 22,
-    },
-  ];
+  useEffect(() => {
+    const getAllOtherUsers = async () => {
+      const users = await getAllUsers();
+      console.log(users);
+      setData(users);
+    };
+    getAllOtherUsers();
+  }, []);
+
+  // const data = [
+  //   {
+  //     id: "123",
+  //     firstName: "Walid",
+  //     lastName: "Guirat",
+  //     job: "Software engineer",
+  //     photoURL:
+  //       "https://scontent.ftun14-1.fna.fbcdn.net/v/t39.30808-6/283889213_5371788816206177_8353715117781829547_n.jpg?_nc_cat=101&ccb=1-7&_nc_sid=174925&_nc_ohc=hTSiPhy13HEAX_YQPgb&_nc_ht=scontent.ftun14-1.fna&oh=00_AfDT6cK5eQK3hrU0c4pAVBPg5Yumaky8z8SpogZ1bbTnOw&oe=638F4B40",
+  //     age: 24,
+  //   },
+  //   {
+  //     id: "456",
+  //     firstName: "Mohamed Ali",
+  //     lastName: "Ghraieb",
+  //     job: "Mechanical engineer",
+  //     photoURL:
+  //       "https://scontent.ftun14-1.fna.fbcdn.net/v/t39.30808-6/313406058_5624022434341289_8889043509133358147_n.jpg?_nc_cat=108&ccb=1-7&_nc_sid=09cbfe&_nc_ohc=jfw0fkair7YAX-jmoRu&_nc_ht=scontent.ftun14-1.fna&oh=00_AfDUNw4m-bL5DZvu2yYhyH9iVYidhiah_UUgymiRxXN00Q&oe=6390B363",
+  //     age: 23,
+  //   },
+  //   {
+  //     id: "789",
+  //     firstName: "Wassim",
+  //     lastName: "Guirat",
+  //     job: "Electric engineer",
+  //     photoURL:
+  //       "https://scontent.ftun14-1.fna.fbcdn.net/v/t39.30808-6/271605380_486600289520135_4775255171374812148_n.jpg?_nc_cat=100&ccb=1-7&_nc_sid=174925&_nc_ohc=PD5Clb7nn_cAX8F970e&_nc_ht=scontent.ftun14-1.fna&oh=00_AfAgreg_TzlQiy3Fys2XW4xaVuIayOk5l6u_7E1p25hWIA&oe=638F7B68",
+  //     age: 22,
+  //   },
+  // ];
 
   const swipeLeft = async (cardIndex) => {
     if (!data[cardIndex]) return;
@@ -138,7 +147,7 @@ const HomeScreen = () => {
                 >
                   <View>
                     <Text style={tailwind("text-xl font-bold")}>
-                      {card.firstName} {card.lastName}
+                      {card.displayName}
                     </Text>
                     <Text>{card.job}</Text>
                   </View>

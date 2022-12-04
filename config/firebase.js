@@ -4,6 +4,8 @@ import { initializeApp } from "firebase/app";
 // https://firebase.google.com/docs/web/setup#available-libraries
 import "firebase/auth/";
 import "firebase/firestore";
+import "firebase/storage";
+import "firebase/database";
 // import initfirebase from './index';
 // import app from "firebase/compat/app";
 // import "firebase/compat/auth";

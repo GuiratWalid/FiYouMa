@@ -42,6 +42,12 @@
 			"marginLeft": 40
 		}
 	},
+	"my-8": {
+		"style": {
+			"marginTop": 32,
+			"marginBottom": 32
+		}
+	},
 	"mb-8": {
 		"style": {
 			"marginBottom": 32
@@ -85,6 +91,21 @@
 	"mb-12": {
 		"style": {
 			"marginBottom": 48
+		}
+	},
+	"mb-5": {
+		"style": {
+			"marginBottom": 20
+		}
+	},
+	"mt-5": {
+		"style": {
+			"marginTop": 20
+		}
+	},
+	"mb-16": {
+		"style": {
+			"marginBottom": 64
 		}
 	},
 	"flex": {
@@ -165,6 +186,16 @@
 	"w-16": {
 		"style": {
 			"width": 64
+		}
+	},
+	"w-80": {
+		"style": {
+			"width": 320
+		}
+	},
+	"w-72": {
+		"style": {
+			"width": 288
 		}
 	},
 	"flex-1": {
@@ -388,6 +419,18 @@
 		"style": {
 			"fontSize": 18,
 			"lineHeight": 28
+		}
+	},
+	"text-6xl": {
+		"style": {
+			"fontSize": 60,
+			"lineHeight": 1
+		}
+	},
+	"text-3xl": {
+		"style": {
+			"fontSize": 30,
+			"lineHeight": 36
 		}
 	},
 	"font-bold": {

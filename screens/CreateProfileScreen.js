@@ -13,7 +13,6 @@ import { useTailwind } from "tailwind-rn";
 
 const LoginScreen = () => {
   const [displayName, setDisplayName] = useState("");
-  const [photoURL, setPhotoURL] = useState("");
   const [job, setJob] = useState("");
   const [age, setAge] = useState();
   const { createProfile, loading } = useAuth();
@@ -32,7 +31,7 @@ const LoginScreen = () => {
         source={require("../assets/images/background1.png")}
       >
         <Image
-          style={[tailwind("mb-8"), { height: 150, width: 150 }]}
+          style={[tailwind("mb-8"), { height: 200, width: 200 }]}
           source={require("../assets/images/logo.png")}
         />
         <TextInput
@@ -44,16 +43,6 @@ const LoginScreen = () => {
           }}
           placeholder="Full Name"
           value={displayName}
-        ></TextInput>
-        <TextInput
-          style={tailwind(
-            "w-64 p-2 text-center bg-white h-12 mb-8 rounded-2xl"
-          )}
-          onChangeText={(e) => {
-            setPhotoURL(e);
-          }}
-          placeholder="Photo URL"
-          value={photoURL}
         ></TextInput>
         <TextInput
           style={tailwind(
@@ -82,9 +71,7 @@ const LoginScreen = () => {
             tailwind("w-52 bg-white p-4 rounded-2xl"),
             { marginHorizontal: "25%" },
           ]}
-          onPress={async () =>
-            await createProfile(displayName, photoURL, job, age)
-          }
+          onPress={async () => await createProfile(displayName, job, age)}
         >
           <Text style={tailwind("font-bold text-center")}>Create Account</Text>
         </TouchableOpacity>

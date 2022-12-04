@@ -13,8 +13,8 @@ import { useTailwind } from "tailwind-rn";
 import DialogComponent from "../components/DialogComponent";
 
 const LoginScreen = () => {
-  const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
+  const [email, setEmail] = useState("walid@test.com");
+  const [password, setPassword] = useState("123456");
   const [message, setMessage] = useState("false");
   const [visible, setVisible] = useState(false);
   const { login, loading } = useAuth();

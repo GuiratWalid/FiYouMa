@@ -1,14 +1,14 @@
 // Import the functions you need from the SDKs you need
-// import { initializeApp } from "firebase/app";
+import { initializeApp } from "firebase/app";
 // TODO: Add SDKs for Firebase products that you want to use
 // https://firebase.google.com/docs/web/setup#available-libraries
+import "firebase/auth/";
+import "firebase/firestore";
+// import initfirebase from './index';
+// import app from "firebase/compat/app";
 // import "firebase/compat/auth";
-// import "firebase/compat/firestore";
-//import initfirebase from './index';
-import app from "firebase/compat/app";
-import "firebase/compat/auth";
-import "firebase/compat/database";
-import "firebase/compat/storage";
+// import "firebase/compat/database";
+// import "firebase/compat/storage";
 import {
   API_KEY,
   AUTH_DOMAIN,
@@ -32,12 +32,12 @@ const firebaseConfig = {
 };
 
 // Initialize Firebase
-// const initfirebase = initializeApp(firebaseConfig);
-// console.log(initfirebase);
-// export default initfirebase;
+const initfirebase = initializeApp(firebaseConfig);
+export default initfirebase;
+
 // const auth = await initfirebase.auth();
 // const db = await initfirebase.firestore();
 
 // export { auth, db };
-const initfirebase = app.initializeApp(firebaseConfig);
-export default initfirebase;
+// const initfirebase = app.initializeApp(firebaseConfig);
+// export default initfirebase;

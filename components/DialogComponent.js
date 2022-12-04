@@ -3,6 +3,7 @@ import { View } from "react-native";
 import { Button, Paragraph, Dialog } from "react-native-paper";
 
 const DialogComponent = ({ title, message, visible, setVisibility }) => {
+  React.useEffect(() => console.log(visible, message, title), []);
   return (
     <View>
       <Dialog visible={visible} onDismiss={() => setVisibility(true)}>

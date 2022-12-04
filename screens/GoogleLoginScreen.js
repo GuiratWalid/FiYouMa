@@ -95,9 +95,15 @@ import React, { useLayoutEffect } from "react";
 import useAuth from "../hooks/useAuth";
 import { useNavigation } from "@react-navigation/native";
 import { useTailwind } from "tailwind-rn";
+import * as Google from "expo-auth-session/providers/google";
+import config from "../config/google";
+import * as WebBrowser from "expo-web-browser";
+
+WebBrowser.maybeCompleteAuthSession();
 
 const GoogleLoginScreen = () => {
   const { signInWithGoogle, loading } = useAuth();
+  const [request, response, promptAsync] = Google.useAuthRequest(config);
   const navigation = useNavigation();
   const tailwind = useTailwind();
   useLayoutEffect(() => {
@@ -121,7 +127,10 @@ const GoogleLoginScreen = () => {
             tailwind("absolute bottom-64 w-52 bg-white p-4 rounded-2xl"),
             { marginHorizontal: "25%" },
           ]}
-          onPress={signInWithGoogle}
+          onPress={async () => {
+            await promptAsync();
+            await signInWithGoogle(response);
+          }}
         >
           <Text style={tailwind("font-bold text-center")}>
             Sign in with Google

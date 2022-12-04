@@ -13,12 +13,12 @@ export default function App() {
   return (
     <NavigationContainer>
       <TailwindProvider utilities={utilities}>
-        {/* <PaperProvider> */}
-        {/* HOC */}
-        <AuthProvider>
-          <StackNavigator />
-        </AuthProvider>
-        {/* </PaperProvider> */}
+        <PaperProvider>
+          {/* HOC */}
+          <AuthProvider>
+            <StackNavigator />
+          </AuthProvider>
+        </PaperProvider>
       </TailwindProvider>
     </NavigationContainer>
   );

@@ -10,7 +10,6 @@ import React, { useLayoutEffect, useState } from "react";
 import useAuth from "../hooks/useAuth";
 import { useNavigation } from "@react-navigation/native";
 import { useTailwind } from "tailwind-rn";
-import initfirebase from "../config/firebase";
 
 const RegisterScreen = () => {
   const [email, setEmail] = useState("");
@@ -72,7 +71,9 @@ const RegisterScreen = () => {
             tailwind("w-52 bg-white p-4 rounded-2xl"),
             { marginHorizontal: "25%" },
           ]}
-          onPress={() => register(email, password, confirmPassword)}
+          onPress={async () => {
+            await register(email, password, confirmPassword);
+          }}
         >
           <Text style={tailwind("font-bold text-center")}>Create account</Text>
         </TouchableOpacity>

@@ -10,18 +10,15 @@ import React, { useLayoutEffect, useState } from "react";
 import useAuth from "../hooks/useAuth";
 import { useNavigation } from "@react-navigation/native";
 import { useTailwind } from "tailwind-rn";
-import DialogComponent from "../components/DialogComponent";
 
 const LoginScreen = () => {
-  const [firstName, setFirstName] = useState("");
-  const [lastName, setLastName] = useState("");
+  const [displayName, setDisplayName] = useState("");
+  const [photoURL, setPhotoURL] = useState("");
   const [job, setJob] = useState("");
   const [age, setAge] = useState();
-  const [visible, setVisible] = useState(false);
-  const { login, loading } = useAuth();
+  const { createProfile, loading } = useAuth();
   const navigation = useNavigation();
   const tailwind = useTailwind();
-  const setVisibility = (vis) => setVisible(vis);
   useLayoutEffect(() => {
     navigation.setOptions({
       headerShown: false,
@@ -43,20 +40,20 @@ const LoginScreen = () => {
             "w-64 p-2 text-center bg-white h-12 mb-8 rounded-2xl"
           )}
           onChangeText={(e) => {
-            setFirstName(e);
+            setDisplayName(e);
           }}
-          placeholder="First Name"
-          value={firstName}
+          placeholder="Full Name"
+          value={displayName}
         ></TextInput>
         <TextInput
           style={tailwind(
             "w-64 p-2 text-center bg-white h-12 mb-8 rounded-2xl"
           )}
           onChangeText={(e) => {
-            setLastName(e);
+            setPhotoURL(e);
           }}
-          placeholder="Last Name"
-          value={lastName}
+          placeholder="Photo URL"
+          value={photoURL}
         ></TextInput>
         <TextInput
           style={tailwind(
@@ -85,16 +82,12 @@ const LoginScreen = () => {
             tailwind("w-52 bg-white p-4 rounded-2xl"),
             { marginHorizontal: "25%" },
           ]}
-          onPress={() => alert(firstName)}
+          onPress={async () =>
+            await createProfile(displayName, photoURL, job, age)
+          }
         >
           <Text style={tailwind("font-bold text-center")}>Create Account</Text>
         </TouchableOpacity>
-        {/* <DialogComponent
-          visible={visible}
-          title="Alert"
-          message="Veuillez Saisir le mot de passe"
-          setVisibility={setVisibility}
-        /> */}
       </ImageBackground>
     </View>
   );

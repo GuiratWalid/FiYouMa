@@ -5,13 +5,12 @@ import { useNavigation } from "@react-navigation/native";
 import { SafeAreaView } from "react-native-safe-area-context";
 import useAuth from "../hooks/useAuth";
 import Swiper from "react-native-deck-swiper";
-import HomeHeader from "../components/HomeHeader";
-import HomeFooter from "../components/HomeFooter";
+import { Ionicons, AntDesign, Entypo } from "@expo/vector-icons";
 
 const HomeScreen = () => {
   const navigation = useNavigation();
   const tailwind = useTailwind();
-  const { user } = useAuth();
+  const { user, logout } = useAuth();
 
   const swipeRef = useRef(null);
 
@@ -65,7 +64,29 @@ const HomeScreen = () => {
 
   return (
     <SafeAreaView style={tailwind("flex-1")}>
-      <HomeHeader photoURL={user.photoURL} />
+      {/* <HomeHeader photoURL={user.photoURL} /> */}
+      <View
+        style={tailwind("flex-row items-center justify-between relative px-5")}
+      >
+        <TouchableOpacity onPress={logout}>
+          <Image
+            style={tailwind("h-10 w-10 rounded-full")}
+            source={{ uri: user.photoURL }}
+          />
+        </TouchableOpacity>
+        <TouchableOpacity
+          onPress={() => navigation.navigate("Modal")}
+          style={tailwind("mt-2")}
+        >
+          <Image
+            style={tailwind("h-16 w-14")}
+            source={require("../assets/images/logo1.png")}
+          />
+        </TouchableOpacity>
+        <TouchableOpacity onPress={() => navigation.navigate("Chat")}>
+          <Ionicons name="chatbubble-sharp" size={35} color="#FF5864" />
+        </TouchableOpacity>
+      </View>
       <View style={tailwind("flex-1 -mt-6")}>
         <Swiper
           ref={swipeRef}
@@ -143,7 +164,24 @@ const HomeScreen = () => {
           }
         />
       </View>
-      <HomeFooter swipeRef={swipeRef} />
+      <View style={tailwind("flex flex-row justify-evenly mb-12")}>
+        <TouchableOpacity
+          onPress={() => swipeRef.current.swipeLeft()}
+          style={tailwind(
+            "items-center justify-center rounded-full w-16 h-16 bg-red-200"
+          )}
+        >
+          <Entypo name="cross" size={24} color="red" />
+        </TouchableOpacity>
+        <TouchableOpacity
+          onPress={() => swipeRef.current.swipeRight()}
+          style={tailwind(
+            "items-center justify-center rounded-full w-16 h-16 bg-green-200"
+          )}
+        >
+          <AntDesign name="heart" size={24} color="green" />
+        </TouchableOpacity>
+      </View>
     </SafeAreaView>
   );
 };

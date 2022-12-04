@@ -15,6 +15,7 @@ import DialogComponent from "../components/DialogComponent";
 const LoginScreen = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const [message, setMessage] = useState("false");
   const [visible, setVisible] = useState(false);
   const { login, loading } = useAuth();
   const navigation = useNavigation();

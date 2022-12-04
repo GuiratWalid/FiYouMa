@@ -20,15 +20,15 @@ const StackNavigator = () => {
       {user ? (
         <>
           <Stack.Group>
-            <Stack.Screen
-              name="Profile"
-              component={CreateProfileScreen}
-            ></Stack.Screen>
             <Stack.Screen name="Home" component={HomeScreen}></Stack.Screen>
             <Stack.Screen name="Chat" component={ChatScreen}></Stack.Screen>
             <Stack.Screen
               name="Messages"
               component={MessagesScreen}
+            ></Stack.Screen>
+            <Stack.Screen
+              name="Profile"
+              component={CreateProfileScreen}
             ></Stack.Screen>
           </Stack.Group>
           <Stack.Group screenOptions={{ presentation: "modal" }}>

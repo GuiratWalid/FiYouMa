@@ -1,13 +1,25 @@
 import { TouchableOpacity, Image, Text, StyleSheet, View } from "react-native";
-import React from "react";
+import React, { useLayoutEffect, useState } from "react";
 import { useNavigation } from "@react-navigation/native";
 import { useTailwind } from "tailwind-rn";
 import useAuth from "../hooks/useAuth";
+
+const getMatchedUserInfo = (users, userLoggedIn) => {
+  const newUsers = { ...users };
+  delete newUsers[userLoggedIn];
+  const [id, newUser] = Object.entries(newUsers).flat();
+  return { id, ...newUser };
+};
 
 const ChatRow = ({ matchDetails }) => {
   const navigation = useNavigation();
   const tailwind = useTailwind();
   const { user } = useAuth();
+  const [matchedUserInfo, setMatchedUserInfo] = useState(null);
+
+  useLayoutEffect(() => {
+    setMatchedUserInfo(getMatchedUserInfo(matchDetails.item.users, user.uid));
+  }, []);
   return (
     <TouchableOpacity
       style={[
@@ -15,7 +27,7 @@ const ChatRow = ({ matchDetails }) => {
         styles.cardShadow,
         { marginHorizontal: 10, marginVertical: 5 },
       ]}
-      onPress={() => navigation.navigate("Messages", { matchDetails })}
+      onPress={() => navigation.navigate("Messages", { matchedUserInfo })}
     >
       <Image
         style={[
@@ -24,11 +36,11 @@ const ChatRow = ({ matchDetails }) => {
             marginRight: 5,
           },
         ]}
-        source={{ uri: matchDetails?.item?.photoURL }}
+        source={{ uri: matchedUserInfo?.photoURL }}
       />
       <View>
         <Text style={tailwind("text-lg font-semibold")}>
-          {matchDetails?.item?.firstName + " " + matchDetails?.item?.lastName}
+          {matchedUserInfo?.displayName}
         </Text>
         <Text>Say Hi!</Text>
       </View>

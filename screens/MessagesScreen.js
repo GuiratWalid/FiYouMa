@@ -22,7 +22,7 @@ const MessagesScreen = () => {
   const [input, setInput] = useState("");
   const tailwind = useTailwind();
   const { params } = useRoute();
-  const { matchDetails } = params;
+  const { matchedUserInfo } = params;
   const [messages, setMessages] = useState([
     { id: 1, message: "Bonjour", from: "me" },
     { id: 1, message: "Bonjour", from: "other" },
@@ -50,12 +50,7 @@ const MessagesScreen = () => {
 
   return (
     <SafeAreaView style={tailwind("flex-1")}>
-      <ChatHeader
-        callEnbaled={true}
-        title={
-          matchDetails?.item?.firstName + " " + matchDetails?.item?.lastName
-        }
-      />
+      <ChatHeader callEnbaled={true} title={matchedUserInfo.displayName} />
       <KeyboardAvoidingView
         behavior={Platform.OS === "ios" ? "padding" : "height"}
         style={tailwind("flex-1")}
@@ -73,7 +68,7 @@ const MessagesScreen = () => {
                 <ReceiverMessage
                   key={item?.item?.id}
                   message={item?.item?.message}
-                  photoURL={matchDetails?.item?.photoURL}
+                  photoURL={matchedUserInfo.photoURL}
                 />
               );
             }}

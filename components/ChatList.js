@@ -1,20 +1,40 @@
 import { View, Text, FlatList } from "react-native";
-import React, { useLayoutEffect, useState } from "react";
+import React, { useEffect, useState } from "react";
 import { useTailwind } from "tailwind-rn";
 import useAuth from "../hooks/useAuth";
 import ChatRow from "./ChatRow";
+import {
+  collection,
+  getFirestore,
+  onSnapshot,
+  query,
+  where,
+} from "firebase/firestore";
+import initfirebase from "../config/firebase";
+
+const firestore = getFirestore(initfirebase);
 
 const ChatList = () => {
   const [matches, setMatches] = useState([]);
   const tailwind = useTailwind();
-  const { getAllMatches } = useAuth();
+  const { getAllMatches, user } = useAuth();
 
-  useLayoutEffect(() => {
-    const getAllOtherMatches = async () => {
-      const allMatches = await getAllMatches();
-      setMatches(allMatches);
-    };
-    getAllOtherMatches();
+  useEffect(() => {
+    // const getAllOtherMatches = async () => {
+    //   const allMatches = await getAllMatches();
+    //   setMatches(allMatches);
+    // };
+    // getAllOtherMatches();
+    onSnapshot(
+      query(
+        collection(firestore, "matches"),
+        where("usersMatched", "array-contains", user.uid)
+      ),
+      (snapshot) => {
+        setMatches(snapshot.docs.map((doc) => ({ id: doc.id, ...doc.data() })));
+      }
+    );
+    console.log(matches);
   }, []);
   return matches.length > 0 ? (
     <FlatList

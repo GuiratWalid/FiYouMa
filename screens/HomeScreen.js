@@ -22,7 +22,6 @@ const HomeScreen = () => {
   useEffect(() => {
     const getAllOtherUsers = async () => {
       const users = await getAllUsers();
-      console.log(users);
       setData(users);
     };
     getAllOtherUsers();
@@ -30,7 +29,7 @@ const HomeScreen = () => {
 
   // const data = [
   //   {
-  //     id: "123",
+  //     uid: "123",
   //     firstName: "Walid",
   //     lastName: "Guirat",
   //     job: "Software engineer",
@@ -39,7 +38,7 @@ const HomeScreen = () => {
   //     age: 24,
   //   },
   //   {
-  //     id: "456",
+  //     uid: "456",
   //     firstName: "Mohamed Ali",
   //     lastName: "Ghraieb",
   //     job: "Mechanical engineer",
@@ -61,13 +60,13 @@ const HomeScreen = () => {
   const swipeLeft = async (cardIndex) => {
     if (!data[cardIndex]) return;
     const userSwipped = data[cardIndex];
-    console.log("You swipped PASS on " + userSwipped.id);
+    console.log("You swipped PASS on " + userSwipped.uid);
   };
 
   const swipeRight = async (cardIndex) => {
     if (!data[cardIndex]) return;
     const userSwipped = data[cardIndex];
-    console.log("You swipped MATCH on " + userSwipped.id);
+    console.log("You swipped MATCH on " + userSwipped.uid);
     navigation.navigate("Matched", { loggedInProfile: user, userSwipped });
   };
 

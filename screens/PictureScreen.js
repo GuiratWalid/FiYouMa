@@ -85,7 +85,7 @@ const PictureScreen = () => {
           <Image
             style={[tailwind("mb-8 rounded-full"), { height: 150, width: 150 }]}
             source={
-              image === null
+              image == ""
                 ? require("../assets/images/emptyImage.png")
                 : { uri: image }
             }

@@ -20,8 +20,10 @@ import {
   query,
   where,
   getDocs,
+  onSnapshot,
   getDoc,
 } from "firebase/firestore";
+import { useGenerateId } from "./useGenerateId";
 
 const auth = getAuth(initfirebase);
 const firestore = getFirestore(initfirebase);
@@ -173,24 +175,14 @@ export const AuthProvider = ({ children }) => {
   };
 
   const matchUsers = async (loggedInProfile, userSwipped) => {
-    await setDoc(doc(firestore, "matches", user.uid), {
-      loggedInProfile,
-      userSwipped,
+    const id = useGenerateId(loggedInProfile.uid, userSwipped.uid);
+    await setDoc(doc(firestore, "matches", id), {
+      users: {
+        [loggedInProfile.uid]: loggedInProfile,
+        [userSwipped.uid]: userSwipped,
+      },
+      usersMatched: [user.uid, userSwipped.uid],
     });
-  };
-
-  const getAllMatches = async () => {
-    const q = query(
-      collection(firestore, "macthes", user.uid),
-      where("loggedInProfile.uid", "==", user.uid)
-    );
-    const array = [];
-    const querySnapshot = await getDocs(q);
-    querySnapshot.forEach((doc) => {
-      console.log(doc.data());
-      doc.data() && array.push(doc.data());
-    });
-    return array;
   };
 
   return (
@@ -203,7 +195,6 @@ export const AuthProvider = ({ children }) => {
         login,
         register,
         createProfile,
-        getAllMatches,
         matchUsers,
         updatePhoto,
         loading: false,

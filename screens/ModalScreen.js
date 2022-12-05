@@ -7,7 +7,7 @@ import useAuth from "../hooks/useAuth";
 const ModalScreen = () => {
   const navigation = useNavigation();
   const tailwind = useTailwind();
-  const [image, setImage] = useState(null);
+  const [displayName, setDisplayName] = useState(null);
   const [job, setJob] = useState(null);
   const [age, setAge] = useState(null);
   const { user, createProfile } = useAuth();
@@ -34,13 +34,13 @@ const ModalScreen = () => {
         Welcome {user.displayName}
       </Text>
       <Text style={tailwind("text-center p-3 font-bold text-red-400")}>
-        Step 1: The Profile Picture
+        Step 1: The Display Name
       </Text>
       <TextInput
         style={tailwind("h-12 text-center bg-white pb-2")}
-        placeholder="Enter a Profile Picture URL"
-        onChangeText={(text) => setImage(text)}
-        value={image}
+        placeholder="Enter your full name"
+        onChangeText={(text) => setDisplayName(text)}
+        value={displayName}
       ></TextInput>
       <Text style={tailwind("text-center p-3 font-bold text-red-400")}>
         Step 2: The Job
@@ -63,15 +63,16 @@ const ModalScreen = () => {
         maxLength={2}
       />
       <TouchableOpacity
-        disabled={!image || !age || !job}
+        disabled={!displayName || !age || !job}
         style={tailwind(
           `w-64 p-3 rounded-xl absolute bottom-10 bg-red-400 ${
-            !image || !age || !job ? "bg-gray-400" : "bg-red-400"
+            !displayName || !age || !job ? "bg-gray-400" : "bg-red-400"
           }`
         )}
-        onPress={async () =>
-          await createProfile(user.displayName, image, job, age)
-        }
+        onPress={async () => {
+          await createProfile(displayName, job, age);
+          navigation.navigate("Home");
+        }}
       >
         <Text style={tailwind("text-center font-bold text-white text-xl")}>
           Update Profile

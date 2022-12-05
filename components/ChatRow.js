@@ -27,7 +27,9 @@ const ChatRow = ({ matchDetails }) => {
         styles.cardShadow,
         { marginHorizontal: 10, marginVertical: 5 },
       ]}
-      onPress={() => navigation.navigate("Messages", { matchedUserInfo })}
+      onPress={() =>
+        navigation.navigate("Messages", { matchDetails, matchedUserInfo })
+      }
     >
       <Image
         style={[

@@ -20,7 +20,6 @@ import {
   query,
   where,
   getDocs,
-  onSnapshot,
   getDoc,
 } from "firebase/firestore";
 import { useGenerateId } from "./useGenerateId";
@@ -43,9 +42,13 @@ export const AuthProvider = ({ children }) => {
         idToken,
         accessToken
       );
-      return await signInWithCredential(auth, credential);
+      signInWithCredential(auth, credential)
+        .then((response) => {
+          setUser(response.user);
+          navigation.navigate("Profile");
+        })
+        .catch((error) => alert(error));
     }
-    return Promise.reject();
   };
 
   const login = async (email, password) => {
@@ -100,7 +103,7 @@ export const AuthProvider = ({ children }) => {
       const updatedUser = {
         uid: user.uid,
         email: user.email,
-        displayName: user.job,
+        displayName: user.displayName,
         photoURL,
         job: user.job,
         age: user.age,
@@ -130,13 +133,7 @@ export const AuthProvider = ({ children }) => {
         job,
         age,
       };
-      setDoc(doc(firestore, "users", user.uid), {
-        uid: user.uid,
-        email: user.uid,
-        displayName,
-        job,
-        age,
-      })
+      setDoc(doc(firestore, "users", user.uid), updatedUser)
         .then(() => {
           setUser(updatedUser);
           navigation.navigate("Picture");

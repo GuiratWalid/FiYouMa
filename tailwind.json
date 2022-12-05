@@ -313,6 +313,12 @@
 			"backgroundColor": "rgb(187 247 208 / var(--tw-bg-opacity))"
 		}
 	},
+	"bg-red-600": {
+		"style": {
+			"--tw-bg-opacity": 1,
+			"backgroundColor": "rgb(220 38 38 / var(--tw-bg-opacity))"
+		}
+	},
 	"p-2": {
 		"style": {
 			"paddingTop": 8,

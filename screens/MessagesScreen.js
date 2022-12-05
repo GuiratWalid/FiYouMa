@@ -10,44 +10,122 @@ import {
   Keyboard,
   FlatList,
 } from "react-native";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import ChatHeader from "../components/ChatHeader";
 import { useNavigation, useRoute } from "@react-navigation/native";
 import { useTailwind } from "tailwind-rn";
 import { Ionicons } from "@expo/vector-icons";
 import ReceiverMessage from "../components/ReceiverMessage";
 import SenderMessage from "../components/SenderMessage";
+import {
+  addDoc,
+  collection,
+  getDocs,
+  getFirestore,
+  onSnapshot,
+  orderBy,
+  query,
+  serverTimestamp,
+} from "firebase/firestore";
+import initfirebase from "../config/firebase";
+import useAuth from "../hooks/useAuth";
+
+const firestore = getFirestore(initfirebase);
 
 const MessagesScreen = () => {
   const [input, setInput] = useState("");
   const tailwind = useTailwind();
   const { params } = useRoute();
-  const { matchedUserInfo } = params;
+  const { user } = useAuth();
+  const { matchDetails, matchedUserInfo } = params;
   const [messages, setMessages] = useState([
-    { id: 1, message: "Bonjour", from: "me" },
-    { id: 1, message: "Bonjour", from: "other" },
-    { id: 1, message: "Comment ça va ?", from: "me" },
-    { id: 1, message: "Très bien et toi ?", from: "other" },
-    { id: 1, message: "Bien", from: "me" },
-    { id: 1, message: "Cool", from: "me" },
-    { id: 1, message: "Quoi de neuf ?", from: "other" },
-    {
-      id: 1,
-      message:
-        "J'ai décidé de quitter le pays. Je vais poursuivre mes études en Italie",
-      from: "other",
-    },
+    // { id: 1, message: "Bonjour", userId: user.uid },
+    // { id: 2, message: "Chna7walek", userId: user.uid },
+    // {
+    //   id: 3,
+    //   message: "Hello",
+    //   userId: matchedUserInfo.uid,
+    //   photoURL: matchedUserInfo.photoURL,
+    // },
   ]);
   const sendMessage = () => {
     if (input) {
-      setMessages([
-        ...messages,
-        { id: messages.length + 1, message: input, from: "me" },
-      ]);
+      addDoc(
+        collection(firestore, "matches", matchDetails.item.id, "messages"),
+        {
+          timestamp: serverTimestamp(),
+          userId: user.uid,
+          displayName: user.displayName,
+          photoURL: user.photoURL,
+          message: input,
+        }
+      );
+      // setMessages([
+      //   ...messages,
+      //   {
+      //     id: messages.length + 1,
+      //     message: input,
+      //     userId: user.uid,
+      //     photoURL: user.photoURL,
+      //   },
+      // ]);
       setInput("");
     }
   };
 
+  // useEffect(() => {
+  //   onSnapshot(
+  //     query(
+  //       collection(firestore, "matches", matchDetails.item.id, "messages"),
+  //       orderBy("timestamp", "desc")
+  //     )
+  //   ),
+  //     (snapshot) =>
+  //       setMessages(
+  //         snapshot.docs.map((doc) => ({ id: doc.id, ...doc.data() }))
+  //       );
+  // }, [matchDetails, firestore]);
+
+  // useEffect(() => {
+  //   const getMessages = async () => {
+  //     const usersCollection = collection(
+  //       firestore,
+  //       "matches",
+  //       matchDetails.item.id,
+  //       "messages"
+  //     );
+  //     const data = await getDocs(usersCollection);
+  //     let msgs = [];
+  //     data.docs.forEach(async (doc) => {
+  //       msgs.push({ ...doc.data(), id: doc.id });
+  //     });
+  //     setMessages(msgs);
+  //     console.log("**********************", msgs);
+  //   };
+  //   getMessages();
+  // }, [firestore, matchDetails]);
+
+  useEffect(() => {
+    const getMessages = () => {
+      return onSnapshot(
+        query(
+          collection(firestore, "matches", matchDetails.item.id, "messages"),
+          orderBy("timestamp", "desc")
+        ),
+        (querySnapshot) => {
+          const messages = querySnapshot.docs.map((doc) => ({
+            id: doc.id,
+            ...doc.data(),
+          }));
+          setMessages(messages);
+        }
+      );
+    };
+    const unsubscribe = getMessages();
+    return unsubscribe;
+  }, [firestore, matchDetails]);
+
+  console.log(matchedUserInfo);
   return (
     <SafeAreaView style={tailwind("flex-1")}>
       <ChatHeader callEnbaled={true} title={matchedUserInfo.displayName} />
@@ -59,16 +137,17 @@ const MessagesScreen = () => {
         <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
           <FlatList
             data={messages}
+            inverted={-1}
             style={[tailwind("pl-4")]}
             keyExtractor={(item) => item.id}
-            renderItem={(item) => {
-              return item?.item?.from === "me" ? (
-                <SenderMessage key={item.id} message={item?.item?.message} />
+            renderItem={({ item: message }) => {
+              return message.userId === user.uid ? (
+                <SenderMessage key={message.id} message={message.message} />
               ) : (
                 <ReceiverMessage
-                  key={item?.item?.id}
-                  message={item?.item?.message}
-                  photoURL={matchedUserInfo.photoURL}
+                  key={message.id}
+                  message={message.message}
+                  photoURL={message.photoURL}
                 />
               );
             }}

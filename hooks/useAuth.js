@@ -34,7 +34,7 @@ export const AuthProvider = ({ children }) => {
   const navigation = useNavigation();
 
   const signInWithGoogle = async (response) => {
-    console.log(response);
+    console.log("*********************************************", response);
     if (response?.type === "success") {
       const { idToken, accessToken } = response.authentication;
       console.log(accessToken);

@@ -125,7 +125,6 @@ const MessagesScreen = () => {
     return unsubscribe;
   }, [firestore, matchDetails]);
 
-  console.log(matchedUserInfo);
   return (
     <SafeAreaView style={tailwind("flex-1")}>
       <ChatHeader callEnbaled={true} title={matchedUserInfo.displayName} />
